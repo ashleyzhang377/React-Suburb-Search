@@ -1,45 +1,70 @@
-# Frontend Coding Exercise
+# Getting Started with Create React App
 
-## Summary
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-Implement an auto-complete field that uses suburb information from postcodeapi.com.au to suggest suburb names and allow the user to make a suggestion. This design is similar to the input seen on https://google.com or the [ABC homepage](www.abc.net.au) location selector component.
+## Available Scripts
 
-## Scope
+In the project directory, you can run:
 
-This exercise is intended to explore you understanding of HTML, CSS and JavaScript. The provided React structure is provided as a starting point, you are encouraged to change or remove it as you see fit.
+### `npm start`
 
-You do not have to complete all the requirements, but we encourage you to make an attempt at addressing all three areas, rather than submitting a fully fleshed-out solution to just one. You may use ARCHITECTURE.md to detail any solutions that would take too long to implement in code.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-## Requirements
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-1\. Layout and CSS:
+### `npm test`
 
-- Use the provided `<Input />`, `<Button />` and `<ResultsList />` as well as your own markup and CSS to render a layout similar to the image below.
-- The label, input and button should be horizontally aligned.
-- The results should be displayed immediately below the input.
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-2\. Interactivity:
+### `npm run build`
 
-- When typing a suburb name into the input the result list show suggestions provided by the API.
-- Show only results that _start_ with the search term. The input "Syd" should match "Sydenham and "Sydney South", but not "The University Of Sydney" or "Aldersyde".
-- Clicking a suggestion should populate the input with the full name of the suburb.
-- Clicking the button should show an alert informing the user of their most recent suburb selection.
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-3\. Accessibility:
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-- Implement, or document in ARCHITECTURE.md, some enhancements that would improve accessibility.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-![Sample image](./sample.png)
+### `npm run eject`
 
-## Getting Started
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-**DO NOT** fork this repo. Please locally clone and submit the result manually.
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-```
-git clone https://github.com/abcaustralia/frontend-coding-exercise.git
-cd frontend-coding-exercise
-npm install
-npm start
-```
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-This project uses data provided by postcodeapi.com.au. Due to CORS limitations `npm start` will start a local proxy server on http://localhost:8010/proxy.
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

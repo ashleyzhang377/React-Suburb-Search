@@ -64,6 +64,46 @@ function Input({ placeholder, data }, props) {
       </div>
     </div>
   )
+
+
+  return (
+    <div>
+      <div className="sector-style">
+        <h4 className="p-style">Suburb</h4>
+        <input
+          className={"Input " + (className || "")}
+          type="text"
+          placeholder={placeholder}
+          value={wordEntered}
+          onChange={handleFilter}
+        />
+        <Button />
+      </div>
+      <div className="filter-style">
+        <ul className={"ResultsList " + (className || "")} {...otherProps}>
+          {filteredData.length != 0 && (
+            <div className="dataResult">
+              {filteredData.slice(0, 15).map((value, key) => {
+                return (
+                  <li
+                    key={"item" + key}
+                    className="ResultsList-item"
+                    href={value.state.abbreviation}
+                    target="_blank"
+                    onClick={() => onSelect && onSelect(value)}
+                  >
+                    <button className="ResultsList-button">
+                      {value.name}, {value.state.abbreviation}
+                    </button>
+                  </li>
+                );
+              })}
+            </div>
+          )}
+        </ul>
+      </div>
+    </div>
+  );
 }
 
 export default Input;

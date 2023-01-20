@@ -3,6 +3,8 @@ import "./App.css";
 import Input from "./components/Input/Input"
 import APISample from "./API_SAMPLE.json"
 
+import suburbData from "./API_SAMPLE.json"
+
 const API_URL = "http://localhost:8010/proxy/suburbs.json?q=";
 
 function App() {
