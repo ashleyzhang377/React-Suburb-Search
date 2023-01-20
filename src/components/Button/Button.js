@@ -12,13 +12,13 @@ import "./Button.css";
  * @prop {mixed} ... All other props will be forwarded to the native DOM button.
 
  */
-export function Button(props) {
+function Button(props) {
   const { onClick, className, ...otherProps } = props;
 
   return (
     <button
       type="button"
-      className={"Button " + (className || "")}
+      className={"Button" + (className || "")}
       onClick={onClick}
       {...otherProps}
     >
@@ -28,3 +28,5 @@ export function Button(props) {
     </button>
   );
 }
+
+export default Button;

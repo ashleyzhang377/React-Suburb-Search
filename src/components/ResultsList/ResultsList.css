@@ -1,10 +1,11 @@
 .ResultsList {
   background: white;
-  border: 1px solid hsl(0, 0%, 80%);
-  box-shadow: 0.5rem 0.5rem 1rem hsl(0, 0%, 90%);
+  box-shadow: 0.1rem 0.1rem 1rem hsl(0, 0%, 84%);
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 85%;
+  display: inline-block;
 }
 
 .ResultsList .ResultsList-item {
@@ -14,5 +15,22 @@
 }
 
 .ResultsList .ResultsList-item:hover {
-  background: #0058cc;
+  background: #d7d7d7;
+}
+
+.ResultsList-item {
+  display: inline-block;
+  text-align: left;
+  border: none;
+  display: inline-block;
+  font-size: 1rem;
+  transition: box-shadow 0.2s ease-out, border-width 0.2s ease-out;
+  width: 100%;
+}
+
+.ResultsList-button {
+  background: none;
+  border: none;
+  font-size: large;
+  color: hsl(0, 0%, 28%);
 }

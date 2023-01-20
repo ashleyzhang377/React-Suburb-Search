@@ -1,41 +1,69 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Input.css";
+import Button from "../Button/Button"
+import "../ResultsList/ResultsList.css"
 
-/**
- * <Input
- *   className="MyInput"
- *   data-something="Value"
- *   value="Hello, World!"
- *   onChange={(value) => console.log('You typed', value)}
- * />
- *
- * @prop {string} value The default value for the input.
- * @prop {string} placeholder The placeholder text.
- * @prop {Function} onChange Callback that will receive current input value.
- * @prop {mixed} ... All other props will be forwarded to the native DOM input.
- */
-export function Input(props) {
-  const { className, value, onChange, ...otherProps } = props;
+function Input({ placeholder, data }, props) {
+  const { className, value, onChange, onSelect, items, ...otherProps } = props;
+  const [filteredData, setFilteredData] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
 
-  const [inputValue, setInputValue] = useState(value);
+  const handleFilter = (event) => {
+    const searchWord = event.target.value;
+    setWordEntered(searchWord);
+    const newFilter = data.filter((value) => {
+      return value.name.toLowerCase().includes(searchWord.toLowerCase());
+    });
 
-  // Keep the current value, unless the parent component supplies a different "value" prop.
-  useEffect(() => {
-    setInputValue(value);
-  }, [value]);
-
-  function handleChange(event) {
-    setInputValue(event.target.value);
-    onChange && onChange(event.target.value);
-  }
+    if (searchWord === "") {
+      setFilteredData([]);
+    } else {
+      setFilteredData(newFilter);
+    }
+  };
 
   return (
-    <input
-      className={"Input " + (className || "")}
-      type="text"
-      value={inputValue}
-      onChange={handleChange}
-      {...otherProps}
-    />
-  );
+    <div className="bg-container">
+      <div>
+        <p className="p-style inline-block">Suburb</p>
+      </div>
+      <div>
+        <div className="input-style inline-block">
+          <input
+            className={"Input" + (className || "")}
+            type="text"
+            placeholder={placeholder}
+            value={wordEntered}
+            onChange={handleFilter}
+          />
+          <Button />
+        </div>
+        <div className="filter-style">
+          <ul className={"ResultsList " + (className || "")} {...otherProps}>
+            {filteredData.length != 0 && (
+              <div className="dataResult">
+                {filteredData.slice(0, 15).map((value, key) => {
+                  return (
+                    <li
+                      key={"item" + key}
+                      className="ResultsList-item"
+                      href={value.state.abbreviation}
+                      target="_blank"
+                      onClick={() => onSelect && onSelect(value)}
+                    >
+                      <button className="ResultsList-button">
+                        {value.name}, {value.state.abbreviation}
+                      </button>
+                    </li>
+                  );
+                })}
+              </div>
+            )}
+          </ul>
+        </div>
+      </div>
+    </div>
+  )
 }
+
+export default Input;
