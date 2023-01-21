@@ -14,8 +14,10 @@ function Input({ placeholder, data }, props) {
   const handleFilter = (event) => {
     const searchWord = event.target.value;
     setWordEntered(searchWord);
+
     const newFilter = data.filter((value) => {
-      return value.name.toLowerCase().includes(searchWord.toLowerCase()) || value.state.abbreviation.toLowerCase().includes(searchWord.toLowerCase());
+      const searchResult = value.name.toLowerCase().startsWith(searchWord.toLowerCase()) || value.state.abbreviation.toLowerCase().startsWith(searchWord.toLowerCase());
+      return searchResult;
     });
 
     if (searchWord === "") {
