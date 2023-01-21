@@ -52,22 +52,27 @@ function Input({ placeholder, data }, props) {
             {filteredData.length !== 0 && (
               <div className="dataResult">
                 {filteredData
-                .slice(0, 15)
-                .map((value, key) => {
-                  return (
-                    <li
-                      key={value.name + value.state.abbreviation}
-                      className="ResultsList-item"
-                      href={value.state.abbreviation}
-                      target="_blank"
-                      onClick={() => onSearch(value.name + ', ' + value.state.abbreviation)}
-                    >
-                      <button className="ResultsList-button">
-                        {value.name}, {value.state.abbreviation}
-                      </button>
-                    </li>
-                  );
-                })}
+                  .slice(0, 15)
+                  .map((value, key) => {
+                    return (
+                      <li
+                        key={value.name + value.state.abbreviation}
+                        className="ResultsList-item"
+                        href={value.state.abbreviation}
+                        target="_blank"
+                        onClick={() => onSearch(value.name + ', ' + value.state.abbreviation)}
+                      >
+                        <button className="ResultsList-button">
+                          {value.name}, {value.state.abbreviation}
+                        </button>
+                      </li>
+                    );
+                  })}
+                {wordEntered != 0 && filteredData.length === 0 && (
+                  <li className="ResultsList-item">
+                    <button className="ResultsList-button">No Available Data</button>
+                  </li>
+                )}
               </div>
             )}
           </ul>
