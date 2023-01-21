@@ -1,15 +1,20 @@
 // Import React
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 // Import Component
-import Button from "../Button/Button"
+import "../Button/Button.css";
+import iconPath from "../Button/icons.svg";
+
 import "./Input.css";
 import "../ResultsList/ResultsList.css"
 
 function Input({ placeholder, data }, props) {
-  const { className, value, onSelect, items, ...otherProps } = props;
+  const { className, value, onSelect, items, onClick, ...otherProps } = props;
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
+
+  const inputRef = useRef(null);
+  const [updated, setUpdated] = useState('');
 
   const handleFilter = (event) => {
     const searchWord = event.target.value;
@@ -29,6 +34,15 @@ function Input({ placeholder, data }, props) {
 
   const onSearch = (searchTerm) => {
     setWordEntered(searchTerm);
+    console.log(searchTerm);
+  };
+
+  const handleClick = async() => {
+    setUpdated(inputRef.current.value);
+
+    if (updated.length !== 0) {
+      alert(`Your most recent suburb selection was: ${updated}`);
+    }
   };
 
   return (
@@ -44,8 +58,18 @@ function Input({ placeholder, data }, props) {
             placeholder={placeholder}
             value={wordEntered}
             onChange={handleFilter}
+            ref={inputRef}
           />
-          <Button />
+          <button
+            type="button"
+            className={"Button" + (className || "")}
+            onClick={handleClick}
+            {...otherProps}
+          >
+            <svg viewBox="0 0 24 24" width="24" height="16">
+              <use xlinkHref={iconPath + "#dls-icon-arrow-right"} />
+            </svg>
+          </button>
         </div>
         <div className="filter-style">
           <ul className={"ResultsList " + (className || "")} {...otherProps}>
@@ -53,7 +77,7 @@ function Input({ placeholder, data }, props) {
               <div className="dataResult">
                 {filteredData
                   .slice(0, 15)
-                  .map((value, key) => {
+                  .map((value,) => {
                     return (
                       <li
                         key={value.name + value.state.abbreviation}
@@ -68,12 +92,12 @@ function Input({ placeholder, data }, props) {
                       </li>
                     );
                   })}
-                {wordEntered != 0 && filteredData.length === 0 && (
-                  <li className="ResultsList-item">
-                    <button className="ResultsList-button">No Available Data</button>
-                  </li>
-                )}
               </div>
+            )}
+            {wordEntered.length !== 0 && filteredData.length === 0 && (
+              <li className="ResultsList-item">
+                <button className="ResultsList-button">No Available Data</button>
+              </li>
             )}
           </ul>
         </div>
