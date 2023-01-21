@@ -54,7 +54,6 @@ function Input({ placeholder, data }, props) {
                 .map((value, key) => {
                   return (
                     <li
-                      // key={"item" + key}
                       key={value.name + value.state.abbreviation}
                       className="ResultsList-item"
                       href={value.state.abbreviation}
