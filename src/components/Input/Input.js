@@ -1,10 +1,13 @@
+// Import React
 import React, { useState } from "react";
-import "./Input.css";
+
+// Import Component
 import Button from "../Button/Button"
+import "./Input.css";
 import "../ResultsList/ResultsList.css"
 
 function Input({ placeholder, data }, props) {
-  const { className, value, onChange, onSelect, items, ...otherProps } = props;
+  const { className, value, onSelect, items, ...otherProps } = props;
   const [filteredData, setFilteredData] = useState([]);
   const [wordEntered, setWordEntered] = useState("");
 
@@ -20,6 +23,10 @@ function Input({ placeholder, data }, props) {
     } else {
       setFilteredData(newFilter);
     }
+  };
+
+  const onSearch = (searchTerm) => {
+    setWordEntered(searchTerm);
   };
 
   return (
@@ -40,16 +47,19 @@ function Input({ placeholder, data }, props) {
         </div>
         <div className="filter-style">
           <ul className={"ResultsList " + (className || "")} {...otherProps}>
-            {filteredData.length != 0 && (
+            {filteredData.length !== 0 && (
               <div className="dataResult">
-                {filteredData.slice(0, 15).map((value, key) => {
+                {filteredData
+                .slice(0, 15)
+                .map((value, key) => {
                   return (
                     <li
-                      key={"item" + key}
+                      // key={"item" + key}
+                      key={value.name + value.state.abbreviation}
                       className="ResultsList-item"
                       href={value.state.abbreviation}
                       target="_blank"
-                      onClick={() => onSelect && onSelect(value)}
+                      onClick={() => onSearch(value.name + ', ' + value.state.abbreviation)}
                     >
                       <button className="ResultsList-button">
                         {value.name}, {value.state.abbreviation}
