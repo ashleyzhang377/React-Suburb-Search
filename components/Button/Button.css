@@ -1,0 +1,12 @@
+.Button {
+  background: #fdc605;
+  border: none;
+  display: inline-block;
+  justify-content: center;
+  line-height: 1.3rem;
+}
+
+.Button svg {
+  height: 2.5rem;
+  width: auto;
+}
