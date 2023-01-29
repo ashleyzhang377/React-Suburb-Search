@@ -2,13 +2,13 @@
 import React, { useState, useRef } from "react";
 
 // Import Component
-import ResultsList from "../ResultsList/ResultsList";
+import DeleteResult from "../ResultsList/DeleteResult";
 import Button from "../Button/Button";
 
 import "./Input.css";
 import "../ResultsList/ResultsList.css"
 
-function Input({ placeholder, data }, props) {
+function Input({ placeholder, data}, props) {
   const { className, value, onSelect, items, onClick, ...otherProps } = props;
 
   const [filteredData, setFilteredData] = useState([]);
@@ -20,27 +20,30 @@ function Input({ placeholder, data }, props) {
 
   const [isOpen, setIsOpen] = useState(true);
 
+  const [isColored, setIsColored] = useState(false);
+
   let referencja = useRef();
 
-  const handler = (event) => {
+  const openMenuHandler = (event) => {
     if (referencja.current === event.target) {
       setIsOpen(false);
       console.log(" to eventtarget" + event.target);
     }
   };
 
-  const handleOpen = () => {
-    setIsOpen(() => (prev) => !prev);
+  const closeMenuHandler = () => {
+    setIsOpen(!isOpen);
   };
 
   const handleFilter = (event) => {
-    handleOpen();
+    setIsOpen(() => (prev) => !prev);
 
     const searchWord = event.target.value;
     setWordEntered(searchWord);
 
     const newFilter = data.filter((value) => {
-      const searchResult = value.name.toLowerCase().startsWith(searchWord.toLowerCase()) || value.state.abbreviation.toLowerCase().startsWith(searchWord.toLowerCase());
+      const searchResult = value.name.toLowerCase().startsWith(searchWord.toLowerCase())
+      // || value.state.abbreviation.toLowerCase().startsWith(searchWord.toLowerCase());
       return searchResult;
     });
 
@@ -66,7 +69,7 @@ function Input({ placeholder, data }, props) {
     });
   }
 
-  const handleClick = async () => {
+  const handleSearchButtonClick = async () => {
     setUpdated(inputRef.current.value);
 
     if (updated.length !== 0) {
@@ -86,21 +89,18 @@ function Input({ placeholder, data }, props) {
             type="text"
             placeholder={placeholder}
             value={wordEntered}
-            onChange={handleFilter}
             ref={inputRef}
+            onChange={handleFilter}
+            onClick={closeMenuHandler}
           />
           <Button
-            onChecked={handleClick}
+            onChecked={handleSearchButtonClick}
           />
         </div>
-        <div
-          className="filter-style"
-          ref={referencja}
-          onClick={handler}
-        >
+        <div className="filter-style" ref={referencja} onClick={openMenuHandler}>
           {isOpen && <ul className={"ResultsList" + (className || "")} {...otherProps}>
             {filteredData.length !== 0 && (
-              <div className="dataResult">
+              <div className="dataResult" onClick={() => setIsOpen(false)}>
                 <div className="recentSearch">
                   {recentSearch.length !== 0 && (
                     <p>Recent Searches:</p>
@@ -114,14 +114,13 @@ function Input({ placeholder, data }, props) {
                       >
                         {value}
                       </button>
-                      <ResultsList
+                      <DeleteResult
                         key={item}
                         id={item}
                         onChecked={deleteRecentSearch} />
                     </li>
                   ))}
                 </div>
-                <br />
                 <div>
                   {filteredData.length !== 0 && (
                     <p>Search Suggestions:</p>
@@ -135,10 +134,19 @@ function Input({ placeholder, data }, props) {
                           className="ResultsList-item"
                           href={value.state.abbreviation}
                           target="_blank"
-                          onClick={() => addRecentSearch(value.name + ', ' + value.state.abbreviation)}
+                          onClick={() => addRecentSearch(value.name)}
                         >
-                          <button className="ResultsList-button">
-                            {value.name}, {value.state.abbreviation}
+                          <button
+                            className="ResultsList-button"
+                          >
+                            <span
+                              onChange={() => setIsColored(isColored => !isColored)}
+                              style={{ color: isColored ? '' : 'blue' }}
+                            >
+                              {wordEntered.charAt(0).toUpperCase() + wordEntered.slice(1)}
+                            </span>
+                            {/* {(value.name + ', ' + value.state.abbreviation).replace(wordEntered, '')} */}
+                            {value.name.toLowerCase().replace(wordEntered.toLowerCase(), '') + ', ' + value.state.abbreviation}
                           </button>
                         </li>
                       );
